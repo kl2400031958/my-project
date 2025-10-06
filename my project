@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recreated Site — Open in Visual Studio</title>
+  <style>
+    /* Mobile-first modern UI inspired by the provided video frames */
+    :root{
+      --bg-gradient-1: #0f172a; /* deep navy */
+      --accent-1: #7c3aed; /* violet */
+      --accent-2: #06b6d4; /* teal */
+      --glass: rgba(255,255,255,0.07);
+      --card-bg: rgba(255,255,255,0.02);
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(2,6,23,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0}
+    body{
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent),
+                  radial-gradient(900px 400px at 90% 90%, rgba(6,182,212,0.08), transparent),
+                  linear-gradient(180deg,var(--bg-gradient-1) 0%, #071024 100%);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      display:flex;align-items:center;justify-content:center;padding:24px;
+    }
+
+    /* Phone-like container to match the video's device framing */
+    .mock-phone{
+      width:380px;           /* good dev width for Visual Studio preview */
+      max-width:94vw;
+      border-radius:28px;
+      padding:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.04);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* status bar */
+    .status{
+      height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;font-size:12px;opacity:0.9;color:#cfe8ff;
+    }
+
+    header.app-header{margin-top:6px;display:flex;align-items:center;gap:12px}
+    .logo{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+    .title{font-size:15px;font-weight:600}
+    .subtitle{font-size:11px;opacity:0.75}
+
+    main{margin-top:18px}
+    .card{
+      border-radius:16px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter: blur(6px);
+      box-shadow: 0 6px 20px rgba(2,6,23,0.45);border:1px solid rgba(255,255,255,0.03)
+    }
+
+    .hero-title{font-size:20px;font-weight:700;margin:0 0 6px}
+    .hero-text{font-size:13px;opacity:0.85;margin:0 0 12px}
+
+    .big-cta{display:flex;gap:10px}
+    .btn{
+      flex:1;padding:12px 14px;border-radius:12px;border:0;font-weight:700;cursor:pointer;font-size:14px
+    }
+    .btn-primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;box-shadow:0 8px 18px rgba(99,102,241,0.16)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit}
+
+    .preview-image{width:100%;height:160px;border-radius:12px;margin-top:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;color:#bcd9ff;font-weight:600}
+
+    /* small utility grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+    .tile{background:var(--card-bg);padding:8px;border-radius:10px;text-align:center;font-size:12px}
+
+    footer{margin-top:14px;text-align:center;font-size:12px;opacity:0.8}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:60}
+    .modal.active{display:flex}
+    .modal .modal-card{width:360px;max-width:94vw;padding:18px;border-radius:14px;background:#061226;border:1px solid rgba(255,255,255,0.03)}
+
+    /* small animation */
+    .pulse{animation:pulse 2.6s infinite}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+
+    /* responsive tweaks */
+    @media (min-width:900px){.mock-phone{width:420px}}
+  </style>
+</head>
+<body>
+  <div class="mock-phone">
+    <div class="status"><span>9:41</span><span>Wi‑Fi • 100%</span></div>
+
+    <header class="app-header">
+      <div class="logo">WS</div>
+      <div>
+        <div class="title">Website from Video</div>
+        <div class="subtitle">Recreated — JavaScript + HTML</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card pulse" id="hero">
+        <h1 class="hero-title">Fast interactive preview</h1>
+        <p class="hero-text">This page is a faithful, responsive recreation you can run in Visual Studio. Tap buttons to see interactions and open the full demo.</p>
+
+        <div class="big-cta">
+          <button class="btn btn-primary" id="openDemo">Open Demo</button>
+          <button class="btn btn-ghost" id="showCode">Show Code</button>
+        </div>
+
+        <div class="preview-image" id="previewArea">Live preview area — animations run here</div>
+
+        <div class="grid" style="margin-top:14px">
+          <div class="tile">Feature A</div>
+          <div class="tile">Feature B</div>
+          <div class="tile">Feature C</div>
+        </div>
+      </section>
+
+      <footer>Made to match the video layout • Tap <strong>Open Demo</strong> to see JavaScript interactions</footer>
+    </main>
+  </div>
+
+  <!-- modal for demo -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <h3 style="margin:0 0 6px">Interactive demo</h3>
+      <p style="margin:0 0 12px;font-size:13px;opacity:0.9">This small demo shows dynamic content, an animated counter and a form.</p>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <button class="btn btn-primary" id="startCounter">Start Counter</button>
+        <button class="btn btn-ghost" id="stopCounter">Stop</button>
+      </div>
+
+      <div style="display:flex;justify-content:center;align-items:center;margin-bottom:12px">
+        <div id="counter" style="font-weight:800;font-size:28px">0</div>
+      </div>
+
+      <label style="font-size:13px;opacity:0.9">Send a message</label>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <input id="msg" placeholder="Type something" style="flex:1;padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" />
+        <button class="btn btn-primary" id="sendMsg">Send</button>
+      </div>
+
+      <div style="text-align:right;margin-top:12px"><button class="btn btn-ghost" id="closeModal">Close</button></div>
+    </div>
+  </div>
+
+  <script>
+    // Simple JavaScript interactions to match the video's interactivity.
+    const openDemo = document.getElementById('openDemo');
+    const showCode = document.getElementById('showCode');
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('closeModal');
+    const startCounter = document.getElementById('startCounter');
+    const stopCounter = document.getElementById('stopCounter');
+    const counterEl = document.getElementById('counter');
+    const previewArea = document.getElementById('previewArea');
+    const sendMsg = document.getElementById('sendMsg');
+    const msgInput = document.getElementById('msg');
+
+    let counter = 0;
+    let timer = null;
+
+    openDemo.addEventListener('click', ()=>{
+      modal.classList.add('active');
+    });
+    closeModal.addEventListener('click', ()=>{
+      modal.classList.remove('active');
+    });
+
+    startCounter.addEventListener('click', ()=>{
+      if(timer) return;
+      timer = setInterval(()=>{ counter++; counterEl.textContent = counter; }, 300);
+    });
+    stopCounter.addEventListener('click', ()=>{
+      clearInterval(timer); timer = null;
+    });
+
+    sendMsg.addEventListener('click', ()=>{
+      const text = msgInput.value.trim();
+      if(!text) return alert('Type something first');
+      // show message briefly in preview area
+      previewArea.textContent = text;
+      previewArea.animate([
+        {transform:'translateY(8px)', opacity:0},
+        {transform:'translateY(0)', opacity:1}
+      ],{duration:400, easing:'cubic-bezier(.2,.9,.3,1)'});
+      msgInput.value = '';
+      setTimeout(()=>{ previewArea.textContent = 'Live preview area — animations run here'; }, 2200);
+    });
+
+    // show code button opens a small new window with the page's HTML (for quick inspection in VS)
+    showCode.addEventListener('click', ()=>{
+      const w = window.open('', '_blank', 'noopener');
+      const html = document.documentElement.outerHTML;
+      w.document.open();
+      w.document.write('<pre style="white-space:pre-wrap;word-break:break-word;padding:16px;background:#071024;color:#dbeafe;">'+escapeHtml(html)+'</pre>');
+      w.document.close();
+    });
+
+    function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // small flourish: animated gradient on preview area
+    let hue = 200;
+    setInterval(()=>{
+      hue = (hue + 1) % 360;
+      previewArea.style.background = `linear-gradient(180deg, hsla(${hue},70%,45%,0.06), hsla(${(hue+60)%360},60%,40%,0.02))`;
+    },80);
+  </script>
+</body>
+</html>
